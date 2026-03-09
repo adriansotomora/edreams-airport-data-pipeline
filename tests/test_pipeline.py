@@ -6,12 +6,15 @@ Run with:
     python -m unittest tests/test_pipeline.py -v
 """
 
+import logging
 import sqlite3
 import unittest
 
 from src.database import init_schema, load_data
 from src.json_loader import flatten_to_rows
 from src.queries import format_report, get_total_passengers_by_country
+
+logging.disable(logging.CRITICAL)
 
 
 # ── JSON Loader ──────────────────────────────────────────────────

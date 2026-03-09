@@ -4,7 +4,7 @@
 
 This pipeline takes raw flight passenger data (JSON), loads it into a SQLite database, and uses SQL to answer the question: **how many passengers flew from each country?** The results are printed to the console, saved as a report, and visualised in a simple HTML dashboard.
 
-I structured it as a **Medallion pipeline** (bronze → silver → gold) — a pattern I find natural for data work because it keeps raw, cleaned, and aggregated data clearly separated. The whole thing runs on the **Python standard library only** (`json`, `sqlite3`, `logging`, `argparse`), per the exercise constraints.
+I structured it as a **Medallion pipeline** (bronze → silver → gold), which keeps raw, cleaned, and aggregated data clearly separated. The whole thing runs on the **Python standard library only** (`json`, `sqlite3`, `logging`, `argparse`), per the exercise constraints.
 
 ---
 
@@ -131,10 +131,9 @@ Total passengers per country:
 
 ## What I'd Improve With More Time
 
-- **Incremental loads** — support appending new data instead of full reloads
-- **Structured logging** — JSON-formatted logs for production observability
-- **Configuration via environment variables** — for different deployment environments
 - **A query registry** — a dictionary mapping query names to SQL, so adding new reports is just a new dict entry without changing pipeline logic
+- **Scale** — swap SQLite for a proper warehouse (e.g. BigQuery, Redshift) or orchestrate with Airflow/dbt as data volume grows
+- **Structured logging** — JSON-formatted logs for production observability
 
 ---
 
@@ -143,6 +142,7 @@ Total passengers per country:
 Earlier iterations are in `archive/` for reference:
 
 - **solution_v1.py** — the original single-script solution (load → store → query → print, all in one file)
-- **dashboard_v1.py** — an earlier version of the dashboard
+- **dashboard_v1.py** — chart-only dashboard (bar chart + table, reads from gold JSON file)
+- **dashboard_v2.py** — interactive world map + bar chart using Leaflet.js and Chart.js (removed from the main pipeline because country coordinates required manual updates)
 
 These show how the project evolved from a minimal script to the current modular pipeline.

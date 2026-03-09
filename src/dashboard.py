@@ -71,8 +71,8 @@ def write_gold_dashboard(conn: sqlite3.Connection, gold_dir: str) -> str:
   *, *::before, *::after {{ box-sizing: border-box; margin: 0; padding: 0; }}
   body {{
     font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-    background: #525355;
-    color: #FFFFFF;
+    background: #FFFFFF;
+    color: #333333;
     min-height: 100vh;
     padding: 2rem;
   }}
@@ -85,7 +85,7 @@ def write_gold_dashboard(conn: sqlite3.Connection, gold_dir: str) -> str:
   }}
   .subtitle {{
     text-align: center;
-    color: rgba(255,255,255,0.6);
+    color: rgba(0,0,0,0.5);
     margin-bottom: 2rem;
     font-size: .95rem;
   }}
@@ -98,19 +98,18 @@ def write_gold_dashboard(conn: sqlite3.Connection, gold_dir: str) -> str:
     margin-bottom: 2rem;
   }}
   .card {{
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(1,172,251,0.3);
+    background: #F7F9FC;
+    border: 1px solid rgba(1,172,251,0.25);
     border-radius: 12px;
     padding: 1.25rem;
     text-align: center;
-    backdrop-filter: blur(10px);
   }}
   .card .value {{
     font-size: 1.6rem;
     font-weight: 700;
     color: #01ACFB;
   }}
-  .card .label {{ color: rgba(255,255,255,0.6); font-size: .85rem; margin-top: .3rem; }}
+  .card .label {{ color: rgba(0,0,0,0.5); font-size: .85rem; margin-top: .3rem; }}
 
   /* Section headers */
   .section-title {{
@@ -123,7 +122,7 @@ def write_gold_dashboard(conn: sqlite3.Connection, gold_dir: str) -> str:
 
   /* Chart */
   .chart-wrap {{
-    background: rgba(255,255,255,0.05);
+    background: #F7F9FC;
     border: 1px solid rgba(1,172,251,0.2);
     border-radius: 12px;
     padding: 1.5rem;
@@ -135,7 +134,7 @@ def write_gold_dashboard(conn: sqlite3.Connection, gold_dir: str) -> str:
   table {{
     width: 100%;
     border-collapse: collapse;
-    background: rgba(255,255,255,0.05);
+    background: #F7F9FC;
     border-radius: 12px;
     overflow: hidden;
   }}
@@ -148,12 +147,12 @@ def write_gold_dashboard(conn: sqlite3.Connection, gold_dir: str) -> str:
     text-transform: uppercase;
     letter-spacing: .05em;
   }}
-  tr:nth-child(even) {{ background: rgba(255,255,255,0.03); }}
+  tr:nth-child(even) {{ background: #EEF2F7; }}
   tr:hover {{ background: rgba(1,172,251,0.1); }}
   .num {{ text-align: right; font-variant-numeric: tabular-nums; }}
   .footer {{
     text-align: center;
-    color: rgba(255,255,255,0.35);
+    color: rgba(0,0,0,0.35);
     font-size: .8rem;
     margin-top: 2rem;
   }}
@@ -209,8 +208,8 @@ const values = {values_js};
 
 function getColor(i, total) {{
   const t = i / Math.max(total - 1, 1);
-  const r = Math.round(1   + t * (255 - 1));
-  const g = Math.round(172 + t * (255 - 172));
+  const r = Math.round(1   + t * (180 - 1));
+  const g = Math.round(172 + t * (220 - 172));
   const b = Math.round(251 + t * (255 - 251));
   return `rgb(${{r}}, ${{g}}, ${{b}})`;
 }}
@@ -242,13 +241,13 @@ new Chart(ctx, {{
     scales: {{
       x: {{
         ticks: {{
-          color: '#aaa',
+          color: '#666',
           callback: v => (v / 1e6).toFixed(0) + 'M'
         }},
-        grid: {{ color: 'rgba(255,255,255,0.05)' }}
+        grid: {{ color: 'rgba(0,0,0,0.06)' }}
       }},
       y: {{
-        ticks: {{ color: '#ccc', font: {{ size: 12 }} }},
+        ticks: {{ color: '#444', font: {{ size: 12 }} }},
         grid: {{ display: false }}
       }}
     }}
