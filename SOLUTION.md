@@ -139,6 +139,7 @@ Total passengers per country:
 
 ## Archive
 
-An earlier dashboard iteration is in `src/archive/` for reference:
+Earlier iterations are in `src/archive/` for reference:
 
+- **load_and_query_passengers_solution_v1.py** — the original single-script solution (load → store → query → print, all in one file)
 - **dashboard_v2.py** — interactive world map + bar chart using Leaflet.js and Chart.js (removed from the main pipeline because country coordinates required manual updates)

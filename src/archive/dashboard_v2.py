@@ -1,7 +1,7 @@
 """
 Archived: Dashboard v2 — interactive world map + bar chart + table.
 
-Superseded by write_gold_dashboard in pipeline.py (chart + table only).
+Superseded by write_gold_dashboard in dashboard.py (chart + table only).
 Map was removed due to hardcoded country coordinates requiring manual updates.
 Uses Leaflet.js for the bubble map and Chart.js for the bar chart. Brand palette.
 """
@@ -9,10 +9,12 @@ Uses Leaflet.js for the bubble map and Chart.js for the bar chart. Brand palette
 import json
 import logging
 import os
+import sqlite3
+
+from src.queries import QUERY_TOTAL_BY_COUNTRY
 
 logger = logging.getLogger(__name__)
 
-# Country centroids for the map bubbles (lat, lng) — hardcoded, requires manual update when countries change
 _COUNTRY_COORDS: dict[str, tuple[float, float]] = {
     "United States": (39.8, -98.6),
     "China": (35.9, 104.2),
@@ -39,7 +41,7 @@ _COUNTRY_COORDS: dict[str, tuple[float, float]] = {
 }
 
 
-def write_gold_dashboard_v2(gold_dir: str) -> str:
+def write_gold_dashboard_v2(conn: sqlite3.Connection, gold_dir: str) -> str:
     """
     Generate an HTML dashboard with interactive world map, bar chart, and table.
 
@@ -49,17 +51,26 @@ def write_gold_dashboard_v2(gold_dir: str) -> str:
     Archived: map requires hardcoded country coordinates; removed from main pipeline.
 
     Args:
-        gold_dir: Directory containing passengers_by_country.json.
+        conn: Active SQLite connection (data must already be loaded).
+        gold_dir: Directory to write the dashboard HTML into.
 
     Returns:
         Path to the written HTML file.
     """
-    src_path = os.path.join(gold_dir, "passengers_by_country.json")
-    with open(src_path, "r", encoding="utf-8") as f:
-        records = json.load(f)
+    os.makedirs(gold_dir, exist_ok=True)
+
+    cursor = conn.execute(QUERY_TOTAL_BY_COUNTRY)
+    records = [
+        {"country": country, "total_passengers": total}
+        for country, total in cursor
+    ]
 
     if not records:
-        raise ValueError(f"No records found in {src_path}")
+        raise ValueError("No records found — cannot generate dashboard")
+
+    year_cursor = conn.execute("SELECT DISTINCT year FROM passengers ORDER BY year")
+    years = [str(row[0]) for row in year_cursor]
+    year_label = ", ".join(years) if years else "All Years"
 
     grand_total = sum(r["total_passengers"] for r in records)
     max_passengers = records[0]["total_passengers"]
@@ -154,7 +165,7 @@ def write_gold_dashboard_v2(gold_dir: str) -> str:
 <body>
 <div class="container">
   <h1>✈ Passenger Data Dashboard (v2 archived)</h1>
-  <p class="subtitle">2019 · Top Airports by Country · Total Passengers</p>
+  <p class="subtitle">{year_label} · Top Airports by Country · Total Passengers</p>
   <div class="cards">
     <div class="card"><div class="value">{grand_total:,}</div><div class="label">Grand Total Passengers</div></div>
     <div class="card"><div class="value">{len(records)}</div><div class="label">Countries</div></div>
@@ -205,7 +216,6 @@ new Chart(ctx, {{
 </body>
 </html>"""
 
-    os.makedirs(gold_dir, exist_ok=True)
     out_path = os.path.join(gold_dir, "dashboard_v2_archived.html")
     with open(out_path, "w", encoding="utf-8") as f:
         f.write(html)
