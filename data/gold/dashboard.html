@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Passenger Data Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: #525355;
+    color: #FFFFFF;
+    min-height: 100vh;
+    padding: 2rem;
+  }
+  .container { max-width: 1200px; margin: 0 auto; }
+  h1 {
+    text-align: center;
+    font-size: 2.2rem;
+    margin-bottom: .25rem;
+    color: #01ACFB;
+  }
+  .subtitle {
+    text-align: center;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 2rem;
+    font-size: .95rem;
+  }
+
+  /* KPI cards */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .card {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(1,172,251,0.3);
+    border-radius: 12px;
+    padding: 1.25rem;
+    text-align: center;
+    backdrop-filter: blur(10px);
+  }
+  .card .value {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #01ACFB;
+  }
+  .card .label { color: rgba(255,255,255,0.6); font-size: .85rem; margin-top: .3rem; }
+
+  /* Section headers */
+  .section-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #01ACFB;
+    margin-bottom: .75rem;
+    padding-left: .25rem;
+  }
+
+  /* Chart */
+  .chart-wrap {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(1,172,251,0.2);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  canvas { width: 100% !important; }
+
+  /* Table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(255,255,255,0.05);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  th, td { padding: .65rem 1rem; text-align: left; }
+  th {
+    background: rgba(1,172,251,0.2);
+    color: #01ACFB;
+    font-weight: 600;
+    font-size: .85rem;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+  }
+  tr:nth-child(even) { background: rgba(255,255,255,0.03); }
+  tr:hover { background: rgba(1,172,251,0.1); }
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .footer {
+    text-align: center;
+    color: rgba(255,255,255,0.35);
+    font-size: .8rem;
+    margin-top: 2rem;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>✈ Passenger Data Dashboard</h1>
+  <p class="subtitle">2019 · Top Airports by Country · Total Passengers</p>
+
+  <div class="cards">
+    <div class="card">
+      <div class="value">3,055,838,581</div>
+      <div class="label">Grand Total Passengers</div>
+    </div>
+    <div class="card">
+      <div class="value">22</div>
+      <div class="label">Countries</div>
+    </div>
+    <div class="card">
+      <div class="value">United States</div>
+      <div class="label">Top Country</div>
+    </div>
+    <div class="card">
+      <div class="value">934,865,503</div>
+      <div class="label">Top Country Passengers</div>
+    </div>
+  </div>
+
+  <p class="section-title">📊 Ranking</p>
+  <div class="chart-wrap">
+    <canvas id="chart" height="500"></canvas>
+  </div>
+
+  <p class="section-title">📋 Detail</p>
+  <table>
+    <thead>
+      <tr><th>#</th><th>Country</th><th class="num">Passengers</th><th class="num">Share</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td>United States</td><td class="num">934,865,503</td><td class="num">30.6%</td></tr>
+<tr><td>2</td><td>China</td><td class="num">615,470,479</td><td class="num">20.1%</td></tr>
+<tr><td>3</td><td>Japan</td><td class="num">129,845,901</td><td class="num">4.2%</td></tr>
+<tr><td>4</td><td>United Kingdom</td><td class="num">127,464,778</td><td class="num">4.2%</td></tr>
+<tr><td>5</td><td>Germany</td><td class="num">118,497,420</td><td class="num">3.9%</td></tr>
+<tr><td>6</td><td>India</td><td class="num">115,546,471</td><td class="num">3.8%</td></tr>
+<tr><td>7</td><td>Spain</td><td class="num">114,371,092</td><td class="num">3.7%</td></tr>
+<tr><td>8</td><td>United Arab Emirates</td><td class="num">86,396,757</td><td class="num">2.8%</td></tr>
+<tr><td>9</td><td>France</td><td class="num">76,150,009</td><td class="num">2.5%</td></tr>
+<tr><td>10</td><td>Netherlands</td><td class="num">71,706,999</td><td class="num">2.3%</td></tr>
+<tr><td>11</td><td>South Korea</td><td class="num">71,204,153</td><td class="num">2.3%</td></tr>
+<tr><td>12</td><td>Singapore</td><td class="num">68,283,000</td><td class="num">2.2%</td></tr>
+<tr><td>13</td><td>Thailand</td><td class="num">65,421,844</td><td class="num">2.1%</td></tr>
+<tr><td>14</td><td>Malaysia</td><td class="num">62,336,469</td><td class="num">2.0%</td></tr>
+<tr><td>15</td><td>Indonesia</td><td class="num">54,496,625</td><td class="num">1.8%</td></tr>
+<tr><td>16</td><td>Turkey</td><td class="num">52,009,220</td><td class="num">1.7%</td></tr>
+<tr><td>17</td><td>Canada</td><td class="num">50,496,804</td><td class="num">1.7%</td></tr>
+<tr><td>18</td><td>Mexico</td><td class="num">50,308,049</td><td class="num">1.6%</td></tr>
+<tr><td>19</td><td>Russia</td><td class="num">49,932,752</td><td class="num">1.6%</td></tr>
+<tr><td>20</td><td>Taiwan</td><td class="num">48,689,372</td><td class="num">1.6%</td></tr>
+<tr><td>21</td><td>Philippines</td><td class="num">47,898,046</td><td class="num">1.6%</td></tr>
+<tr><td>22</td><td>Australia</td><td class="num">44,446,838</td><td class="num">1.5%</td></tr>
+
+    </tbody>
+  </table>
+
+  <p class="footer">Generated by Passenger Data Pipeline · Medallion Architecture (Gold Layer)</p>
+</div>
+
+<script>
+// ── Bar Chart ────────────────────────────────────────
+const ctx = document.getElementById('chart').getContext('2d');
+const labels = ["United States", "China", "Japan", "United Kingdom", "Germany", "India", "Spain", "United Arab Emirates", "France", "Netherlands", "South Korea", "Singapore", "Thailand", "Malaysia", "Indonesia", "Turkey", "Canada", "Mexico", "Russia", "Taiwan", "Philippines", "Australia"];
+const values = [934865503, 615470479, 129845901, 127464778, 118497420, 115546471, 114371092, 86396757, 76150009, 71706999, 71204153, 68283000, 65421844, 62336469, 54496625, 52009220, 50496804, 50308049, 49932752, 48689372, 47898046, 44446838];
+
+function getColor(i, total) {
+  const t = i / Math.max(total - 1, 1);
+  const r = Math.round(1   + t * (255 - 1));
+  const g = Math.round(172 + t * (255 - 172));
+  const b = Math.round(251 + t * (255 - 251));
+  return `rgb(${r}, ${g}, ${b})`;
+}
+
+new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: labels,
+    datasets: [{
+      label: 'Total Passengers',
+      data: values,
+      backgroundColor: labels.map((_, i) => getColor(i, labels.length)),
+      borderRadius: 6,
+      borderSkipped: false,
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: ctx => ctx.parsed.x.toLocaleString() + ' passengers'
+        }
+      }
+    },
+    scales: {
+      x: {
+        ticks: {
+          color: '#aaa',
+          callback: v => (v / 1e6).toFixed(0) + 'M'
+        },
+        grid: { color: 'rgba(255,255,255,0.05)' }
+      },
+      y: {
+        ticks: { color: '#ccc', font: { size: 12 } },
+        grid: { display: false }
+      }
+    }
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+PASSENGER REPORT — Total Passengers by Country
+=======================================================
+
+   1. United States                 934,865,503
+   2. China                         615,470,479
+   3. Japan                         129,845,901
+   4. United Kingdom                127,464,778
+   5. Germany                       118,497,420
+   6. India                         115,546,471
+   7. Spain                         114,371,092
+   8. United Arab Emirates           86,396,757
+   9. France                         76,150,009
+  10. Netherlands                    71,706,999
+  11. South Korea                    71,204,153
+  12. Singapore                      68,283,000
+  13. Thailand                       65,421,844
+  14. Malaysia                       62,336,469
+  15. Indonesia                      54,496,625
+  16. Turkey                         52,009,220
+  17. Canada                         50,496,804
+  18. Mexico                         50,308,049
+  19. Russia                         49,932,752
+  20. Taiwan                         48,689,372
+  21. Philippines                    47,898,046
+  22. Australia                      44,446,838
+
+-------------------------------------------------------
+      Grand Total                 3,055,838,581

@@ -1,0 +1,90 @@
+[
+  {
+    "country": "United States",
+    "total_passengers": 934865503
+  },
+  {
+    "country": "China",
+    "total_passengers": 615470479
+  },
+  {
+    "country": "Japan",
+    "total_passengers": 129845901
+  },
+  {
+    "country": "United Kingdom",
+    "total_passengers": 127464778
+  },
+  {
+    "country": "Germany",
+    "total_passengers": 118497420
+  },
+  {
+    "country": "India",
+    "total_passengers": 115546471
+  },
+  {
+    "country": "Spain",
+    "total_passengers": 114371092
+  },
+  {
+    "country": "United Arab Emirates",
+    "total_passengers": 86396757
+  },
+  {
+    "country": "France",
+    "total_passengers": 76150009
+  },
+  {
+    "country": "Netherlands",
+    "total_passengers": 71706999
+  },
+  {
+    "country": "South Korea",
+    "total_passengers": 71204153
+  },
+  {
+    "country": "Singapore",
+    "total_passengers": 68283000
+  },
+  {
+    "country": "Thailand",
+    "total_passengers": 65421844
+  },
+  {
+    "country": "Malaysia",
+    "total_passengers": 62336469
+  },
+  {
+    "country": "Indonesia",
+    "total_passengers": 54496625
+  },
+  {
+    "country": "Turkey",
+    "total_passengers": 52009220
+  },
+  {
+    "country": "Canada",
+    "total_passengers": 50496804
+  },
+  {
+    "country": "Mexico",
+    "total_passengers": 50308049
+  },
+  {
+    "country": "Russia",
+    "total_passengers": 49932752
+  },
+  {
+    "country": "Taiwan",
+    "total_passengers": 48689372
+  },
+  {
+    "country": "Philippines",
+    "total_passengers": 47898046
+  },
+  {
+    "country": "Australia",
+    "total_passengers": 44446838
+  }
+]
