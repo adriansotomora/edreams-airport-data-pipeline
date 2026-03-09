@@ -15,4 +15,4 @@ SILVER_DIR = os.path.join(DATA_DIR, "silver")
 GOLD_DIR = os.path.join(DATA_DIR, "gold")
 
 JSON_FILE = os.path.join(BRONZE_DIR, "data_python_exercise.json")
-DB_FILE = os.path.join(BASE_DIR, "passengers.db")
+DB_FILE = os.path.join(DATA_DIR, "passengers.db")

@@ -29,14 +29,15 @@ edreams-airport-data-pipeline/
 │   ├── database.py      # Schema creation, connection, bulk insert
 │   ├── dashboard.py     # HTML dashboard generator (Chart.js)
 │   ├── pipeline.py      # Silver & gold layer materialisation
-│   └── queries.py       # SQL constants, aggregation, console report
+│   ├── queries.py       # SQL constants, aggregation, console report
+│   └── archive/         # Earlier iterations kept for reference
 ├── tests/
 │   └── test_pipeline.py # Unit tests (JSON loader, DB, queries)
 ├── data/
 │   ├── bronze/          # Raw source data (untouched)
 │   ├── silver/          # Cleaned, flat rows (generated)
-│   └── gold/            # Aggregated output, report, dashboard (generated)
-├── archive/             # Earlier iterations kept for reference
+│   ├── gold/            # Aggregated output, report, dashboard (generated)
+│   └── passengers.db    # Generated SQLite database
 ├── SOLUTION.md          # Detailed solution walkthrough
 └── README.md            # This file
 ```

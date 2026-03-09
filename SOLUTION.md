@@ -36,15 +36,15 @@ edreams-airport-data-pipeline/
 │   ├── database.py      # Creates table, bulk-inserts data via executemany()
 │   ├── dashboard.py     # Generates the HTML dashboard (Chart.js bar chart + KPI cards)
 │   ├── pipeline.py      # Silver & gold layer writers, text report
-│   └── queries.py       # SQL constants, aggregation query, console formatting
+│   ├── queries.py       # SQL constants, aggregation query, console formatting
+│   └── archive/         # Earlier iterations kept for reference
 ├── tests/
 │   └── test_pipeline.py # Unit tests (flattening, DB, queries)
-├── data/
-│   ├── bronze/          # Raw source (untouched)
-│   ├── silver/          # Cleaned, flat rows (generated)
-│   └── gold/            # Aggregated output: JSON, report.txt, dashboard.html (generated)
-├── archive/             # Earlier iterations kept for reference
-└── passengers.db        # Generated SQLite database
+└── data/
+    ├── bronze/          # Raw source (untouched)
+    ├── silver/          # Cleaned, flat rows (generated)
+    ├── gold/            # Aggregated output: JSON, report.txt, dashboard.html (generated)
+    └── passengers.db    # Generated SQLite database
 ```
 
 I split the code into separate modules so each one has a single job — loading, storing, querying, reporting. This makes it straightforward to test or swap out any piece without touching the rest.
@@ -139,10 +139,6 @@ Total passengers per country:
 
 ## Archive
 
-Earlier iterations are in `archive/` for reference:
+An earlier dashboard iteration is in `src/archive/` for reference:
 
-- **solution_v1.py** — the original single-script solution (load → store → query → print, all in one file)
-- **dashboard_v1.py** — chart-only dashboard (bar chart + table, reads from gold JSON file)
 - **dashboard_v2.py** — interactive world map + bar chart using Leaflet.js and Chart.js (removed from the main pipeline because country coordinates required manual updates)
-
-These show how the project evolved from a minimal script to the current modular pipeline.
